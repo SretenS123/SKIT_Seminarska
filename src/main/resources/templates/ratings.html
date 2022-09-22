@@ -1,0 +1,82 @@
+<th:block xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.w3.org/1999/xhtml">
+    <!--SECTION-->
+    <div class="row mt-4">
+        <div class="col-md-5 m-auto">
+            <div  class="card " style="width: 18rem;">
+                <img  class="card-img-top" style="height: 170px;" th:src="${event.getImageUrl()}" >
+                <div class="card-body">
+                    <p class="card-text" th:text="${ event.getDate()}"></p>
+                    <h5 class="card-title" th:text="${event.getTitle()}"></h5>
+                    <p class="card-text" th:text="${'Event description: '+event.getDescription()}"></p>
+                    <p class="card-text" th:text="${'Location: '+ event.getLocation().getName()}"></p>
+                    <p class="card-text" th:text="${'Type: '+event.getEventType()}"></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container pt-5  ">
+        <div class="row">
+            <div class="offset-md-2 col-md-3">
+                <h5 style="color: yellow" class="btn btn-block bg-secondary   ">REVIEWS: <span style="font-size: 30px;" class="font-weight-bold ml-2 mt-2 " th:text="${ratings.size()}"></span> </h5>
+            </div>
+            <div class="offset-md-3 col-md-2">
+                <button id="show_forma" class="btn btn-block btn-warning">Write Review</button>
+            </div>
+        </div>
+        <form th:href="@{'/rating/{id}' (id=${eventId})}" style="display: none;" id="forma" action="" method="post"   >
+            <div class="row w-50 m-auto">
+                <div class="col-md-9">
+                    <div class="form-group ">
+                        <input name="id"  class="form-control" id="id" th:value="${eventId}" hidden ></input>
+                    </div>
+                    <div class="form-group ">
+                        <textarea name="tekst"  class="form-control" id="tekst" placeholder="Enter your text" required  ></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <a style="color: white !important;" id="cancel" class="btn btn-sm btn-secondary mt-2 " >BACK</a>
+                    <button class="btn btn-md btn-success mt-2" type="submit">POST</button>
+                </div>
+            </div>
+
+
+        </form>
+        <div  th:if="${ratings.size()>0}"  th:each="rating : ${ratings}" style="border: 1px solid lightgrey;background-color:whitesmoke;padding: 10px;height: 120px;margin:auto;" class="row mt-3 w-75">
+                <div class="col-md-3">
+                    <img class="p-2" style="display:inline-block;border-radius: 50%; width: 80px;height: 80px; align-items: center;" th:src="@{'data:image/jpeg;base64,'+${rating.getUser().getImageUrl()}}">
+                    <h6 th:if="${rating.getAgo()==0}" th:text="${' just now ' }" class="text-muted mb-2 text-left p-2"></h6>
+                    <h6 th:if="${rating.getAgo()>0}" th:text="${rating.getAgo()+ ' minutes ago ' }" class="text-muted mb-2 text-left p-2"></h6>
+
+                </div>
+                <div class="col-md-6">
+                    <h6 th:text="${rating.getUser().getName() + ' ' + rating.getUser().getSurname() }" class="p-1 font-weight-bold " style="color: orangered"></h6>
+                    <p th:text="${rating.getComment()}" class="p-2 text-center" style="font-size: 27px;"></p>
+                </div>
+                <div class="col-md-3">
+
+                        <button class="btn btn-md btn-danger p-2" style="margin-left: 60%; margin-top: 20px;"><i class="fa fa-thumbs-up"></i> Like </button>
+
+<!--                    <a href="#" class="page-link text-center">Another link</a>-->
+                </div>
+
+        </div>
+    </div>
+
+</th:block>
+<script>
+
+    $(document).ready(function (){
+        $("#show_forma").click(function (){
+            $("#forma").toggle(1000);
+            $(this).hide(1000);
+
+        })
+
+        $("#cancel").click(function (){
+            $("#forma").toggle(1000);
+            $("#show_forma").show(1000);
+        })
+    })
+</script>

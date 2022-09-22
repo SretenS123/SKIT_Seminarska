@@ -1,0 +1,59 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <!--SECTION-->
+    <section id="jumbotron_shoppingCart" class="jumbotron text-center" xmlns:th="http://www.thymeleaf.org">
+        <div class="container">
+            <h3 class="jumbotron-heading">All USERS
+            </h3>
+        </div>
+    </section>
+    <div th:if="${hasError}">
+        <h5 class="text-center text-danger" th:text="${error}"></h5>
+    </div>
+
+
+    <div class="container mb-5">
+        <div class="row">
+            <a class="page-link m-3" th:href="@{/users/download}">Download Excel</a>
+        </div>
+        <div class="row">
+            <div class="col-md-12" th:if="${users.size()>0}">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Surname</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.getName()}"></td>
+                            <td th:text="${user.getSurname()}"></td>
+                            <td th:text="${user.getPhoneNumber()}"></td>
+                            <td th:text="${user.getEmail()}"></td>
+                            <td th:text="${user.getCountry()}"></td>
+                            <td th:text="${user.getRole()}"></td>
+                            <!--                        <td th:text="${event.getManufacturer() !=null} ? ${product.getManufacturer().getName()}: 'No Manufacturer!'"></td>-->
+                            <!--                        <td th:text="${event.getCategory() != null} ? ${product.getCategory().getName()} : 'No Category!'"></td>-->
+                            <td>
+
+                                <form th:method="DELETE" th:action="@{'/users/delete/{id}' (id=${user.getId()})}">
+                                    <button type="submit" class="btn btn-danger">Remove </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</th:block>

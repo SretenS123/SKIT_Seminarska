@@ -1,0 +1,55 @@
+<th:block xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.w3.org/1999/xhtml" >
+
+
+    <!--SECTION-->
+    <section id="jumbotron-venues" class="jumbotron text-center"  xmlns:th="http://www.thymeleaf.org" >
+        <div  class="container">
+            <div class="row">
+                <div class="col-md-6 m-auto ">
+                    <h1 style="background-color: lightcoral;color: white;padding: 2%; border-radius: 50%;" >ALL VENUES</h1>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="container mb-5">
+
+        <div  class="row">
+            <th:block >
+                <div class="col-md-4 mt-3" th:if="${venues.size()>0}" th:each="venue : ${venues}">
+                    <div  class="card" style="width: 18rem;">
+                        <img class="card-img-top" style="height: 170px;"  th:src="${venue.getImageUrl()}" >
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${venue.getName()}"></h5>
+                            <p class="card-text" th:text="${'CAPACITY: '+ venue.getCapacity()}"></p>
+                            <p class="card-text" th:text="${'PURPOSE: '+venue.getVenueType()}"></p>
+
+                        </div>
+                        <!--                        <ul class="list-group list-group-flush">-->
+                        <!--                            <li class="list-group-item">Cras justo odio</li>-->
+                        <!--                            <li class="list-group-item">Dapibus ac facilisis in</li>-->
+                        <!--                            <li class="list-group-item">Vestibulum at eros</li>-->
+                        <!--                        </ul>-->
+                        <div class="card-body" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')">
+                            <a th:href="@{'/venues/edit/{Id}' (Id=${venue.getId()})}" class="card-link btn btn-md btn-info"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{'/venues/delete/{Id}' (Id=${venue.getId()})}" class="card-link btn btn-md btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </th:block>
+
+        </div>
+        <div class="col my-3 mt-5">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 " >
+                    <a type="button" href="/venues/add" class="btn btn-block btn-danger">Add new venue</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</th:block>

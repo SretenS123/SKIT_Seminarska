@@ -1,0 +1,82 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <!--SECTION-->
+    <section  class="jumbotron text-center bg-secondary" xmlns:th="http://www.thymeleaf.org">
+        <div class="container">
+            <h3 class="jumbotron-heading bg-secondary" >ACCOUNT INFORMATION
+                 </h3>
+        </div>
+    </section>
+    <div th:if="${hasError}">
+        <h5 class="text-center text-danger" th:text="${error}"></h5>
+    </div>
+
+
+    <div id="profile" class="container mb-3 ">
+        <div style="background-color: lightblue;border-radius: 20%;" class="w-50 m-auto p-5">
+            <div class="row">
+                <div class="col-md-5 m-auto ">
+                    <img style="border-radius: 50%;width: 200px;height: 200px;" class="pt-4" th:src="@{'data:image/jpeg;base64,'+${user.getImageUrl()}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 m-auto">
+                    <h3 class="p-2" th:text="${user.getEmail()}"></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 m-auto">
+
+                    <h5 class="p-2" >NAME:  <span th:text="${user.getName()}"></span></h5>
+                    <h5 class="p-2" >SURNAME:  <span th:text="${user.getSurname()}"></span></h5>
+                    <h5 class="p-2" >PHONE NUMBER:  <span th:text="${user.getPhoneNumber()}"></span></h5>
+                    <h5 class="p-2" >COUNTRY:  <span th:text="${user.getCountry()}"></span></h5>
+                    <h5 class="p-2" >ROLE:  <span th:text="${user.getRole()}"></span></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h2  class=" text-center font-weight-bold p-5">My ratings</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" >
+                <div class="table-responsive">
+                    <table class="table table-striped bg-warning">
+                        <thead>
+                        <tr>
+                            <th scope="col">Event Title</th>
+                            <th scope="col">User Picture</th>
+                            <th scope="col">Comment</th>
+                            <th scope="col">Time</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="rating : ${ratings}">
+                            <td th:text="${rating.getEvent().getTitle()}"></td>
+                            <td ><img style="width: 60px;height: 60px;" th:src="@{'data:image/jpeg;base64,'+${rating.getUser().getImageUrl()}}" </td>
+                            <td th:text="${rating.getComment()}"></td>
+                            <td th:text="${rating.getAgo()+' minutes ago'}"></td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!--        <div class="row">-->
+<!--            <div class="col-md-12 bg-success">-->
+<!--                <p style="color: white;text-align:right;font-size: 25px;" th:text="${'PRICE PAID:  '+ price+ ' $'}"></p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+</th:block>

@@ -1,0 +1,93 @@
+<th:block xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.w3.org/1999/xhtml" >
+
+
+    <!--SECTION-->
+    <section class="jumbotron text-center" id="jumbotron-events"   xmlns:th="http://www.thymeleaf.org" >
+        <div  class="container">
+            <div class="row">
+                <div class="col-md-6 m-auto">
+                    <h1 style="background-color: lightcoral;color: white;padding: 2%; border-radius: 50%;" >ALL EVENTS</h1>
+                </div>
+            </div>
+
+            <form th:method="GET" th:action="@{'/events'}" class="form-inline  mt-5 my-lg-0">
+                <div id="Search" class="input-group input-group-lg w-100">
+                    <input name="searchKey" type="text" class="form-control "  aria-label="Small"
+                           aria-describedby="inputGroup-sizing-sm"
+                           placeholder="Search Events">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary ">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-md-3">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-info btn-lg m-2 nav_additional" href="/users">SEE USERS</a>
+        </div>
+        <div class="offset-md-6 col-md-3 text-right ">
+            <a sec:authorize="isAuthenticated()" class="btn btn-warning btn-lg m-2 mr-4 nav_additional" href="/myTickets">MY TICKETS</a>
+        </div>
+    </div>
+
+
+
+    <div class="container mb-5 ">
+
+        <div  class="row">
+            <th:block >
+                <div class="col-md-4 mt-3" th:if="${eventList.size()>0}" th:each="event : ${eventList}">
+                    <div  class="card" style="width: 18rem;">
+                        <img  class="card-img-top" style="height: 170px;" th:src="${event.getImageUrl()}" >
+                        <div class="card-body">
+                            <p class="card-text " th:text="${ event.getDate()}"></p>
+                            <h5 style="color: floralwhite;border-radius: 5px 15px 5px 15px;text-align: center;" class="card-title bg-danger p-2 w-100  " th:text="${event.getTitle()}"></h5>
+                            <p style="border-bottom: 2px solid lightcoral;" class="card-text" th:text="${'Event description: '+event.getDescription()}"></p>
+                            <p style="border-bottom: 2px solid lightcoral;" class="card-text" th:text="${'Location: '+ event.getLocation().getName()}"></p>
+                            <p style="border-bottom: 2px solid lightcoral;" class="card-text" th:text="${'Type: '+event.getEventType()}"></p>
+
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li th:if= "${event.soldOut== false}" class="list-group-item" style="background-color: floralwhite;">
+                                <p  style="color: red;text-align: center;" class="mt-3" >TICKETS LEFT:  <span style="font-size: 22px;background-color:red;font-weight: bold;border-radius:20%;margin-left: 10px;color: whitesmoke" class="p-2" th:text="${event.getTicketsLeft()}"></span></p>
+                            </li>
+                            <li  th:if= "${event.soldOut== true}" class="list-group-item" style="background-color: red;">
+                                <p  style="color: white;text-align: center;font-size: 22px;"class="mt-2" th:text="${'SOLD OUT!'}"></p>
+                            </li>
+                            <li class="list-group-item">
+                                <form th:method="POST" th:action="@{'/shopping-cart/add-event/{id}' (id=${event.getId()})}"
+                                      sec:authorize="isAuthenticated()">
+                                    <br>
+                                    <button th:if="${event.soldOut== false}" type="submit" class="btn btn-sm btn-outline-success w-100">Book Now</button>
+                                </form>
+                            </li>
+                        </ul>
+                        <div class="card-body" >
+                            <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" th:href="@{'/events/edit/{Id}' (Id=${event.getId()})}" class="card-link btn btn-md btn-info"><i class="fas fa-edit"></i></a>
+                            <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" th:href="@{'/events/delete/{Id}' (Id=${event.getId()})}" class="card-link btn btn-md btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a  th:href="@{'/events/{id}/ratings' (id=${event.getId()})}" class="card-link btn btn-md btn-success"><i class="fas fa-comments"></i></a>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </th:block>
+
+        </div>
+        <div class="col my-3 mt-5">
+            <div class="row">
+                <div class="col-sm-12 col-md-12" >
+                    <a style="background-color: red;color: white;font-size: 20px;" type="button" href="/events/add" class="btn btn-block ">Add new event</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</th:block>

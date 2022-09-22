@@ -1,0 +1,68 @@
+
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <div class="container">
+        <div class="row">
+            <h2 class=" offset-md-2 col-md-8 mb-3 ">REGISTER</h2>
+        </div>
+
+
+        <div class="row">
+            <div class="offset-md-2 col-md-8 offset-md-2">
+                <form th:method="POST" th:action="@{/register}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label  for="name">Name</label>
+                        <input class="form-control" id="name" name="name" type="text" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">Surname</label>
+                        <input class="form-control" id="surname" name="surname" type="text" placeholder="Enter surname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" id="email" name="email" type="text" placeholder="Enter email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Choose Image</label>
+                        <input class="form-control" id="file" name="file" type="file"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input class="form-control" id="phoneNumber" name="phoneNumber" type="text" placeholder="Enter phoneNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"> Password</label>
+                        <input class="form-control" id="password" name="password" type="password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reTypePassword"> reTypePassword</label>
+                        <input class="form-control" id="reTypePassword" name="reTypePassword" type="password" placeholder="reTypePassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input class="form-control" id="country" name="country" type="text" placeholder="Enter country" required>
+                    </div>
+                    <p>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="role" type="radio" id="ROLE_ADMIN" th:value="ROLE_ADMIN">
+                            <label class="form-check-label" for="ROLE_ADMIN" >ADMIN</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="role" type="radio" id="ROLE_MANAGER" th:value="ROLE_MANAGER">
+                            <label class="form-check-label" for="ROLE_MANAGER" >MANAGER</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="role" type="radio" id="ROLE_USER" th:value="ROLE_USER">
+                            <label class="form-check-label" for="ROLE_USER" >USER</label>
+                        </div>
+                    </p>
+                    <h1 th:if="${hasError}" th:text="${error}"></h1>
+
+                    <button class="col-md-12 btn btn-primary" type="submit">Sign up</button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</th:block>

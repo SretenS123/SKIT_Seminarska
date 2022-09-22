@@ -1,0 +1,58 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <!--SECTION-->
+    <section id="jumbotron_shoppingCart" class="jumbotron text-center" xmlns:th="http://www.thymeleaf.org">
+        <div class="container">
+            <h3 class="jumbotron-heading">TICKETS FOR
+                <th:block th:if="${#request.getRemoteUser() != null}"
+                          th:text="${#request.getRemoteUser()}">
+                </th:block> </h3>
+        </div>
+    </section>
+    <div th:if="${hasError}">
+        <h5 class="text-center text-danger" th:text="${error}"></h5>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-12" >
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Event Name</th>
+                            <th scope="col">Event Date</th>
+                            <th scope="col">Event type</th>
+                            <th scope="col">Email Of User</th>
+                            <th scope="col">Ticket Code</th>
+                            <th scope="col">Cost of Ticket</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ticket : ${tickets}">
+                            <td th:text="${ticket.getEvent().getTitle()}"></td>
+                            <td th:text="${ticket.getEvent().getDate()}"></td>
+                            <td th:text="${ticket.getEvent().getEventType()}"></td>
+                            <td th:text="${ticket.getUser().getEmail()}"></td>
+                            <td th:text="${ticket.getRandomCode()}"></td>
+                            <td th:text="${ticket.getPrice()+' $'}"></td>
+
+                            <!--                        <td th:text="${event.getManufacturer() !=null} ? ${product.getManufacturer().getName()}: 'No Manufacturer!'"></td>-->
+                            <!--                        <td th:text="${event.getCategory() != null} ? ${product.getCategory().getName()} : 'No Category!'"></td>-->
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 bg-success">
+                <p style="color: white;text-align:right;font-size: 25px;" th:text="${'PRICE PAID:  '+ price+ ' $'}"></p>
+            </div>
+        </div>
+
+    </div>
+</th:block>

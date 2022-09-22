@@ -1,0 +1,50 @@
+<th:block  xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.w3.org/1999/xhtml">
+    <!--SECTION-->
+    <section class="jumbotron text-center" xmlns:th="http://www.thymeleaf.org">
+        <div class="container">
+            <h1 class="jumbotron-heading">ADD VENUE</h1>
+        </div>
+    </section>
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-5">
+                <form th:method="POST" th:action="@{'/venues/{id}' (id=${venue?.getId()})}" >
+                    <div class="form-group">
+                        <label for="name">Name</label> <input name="name" type="text" class="form-control" id="name" placeholder="Enter  name"  th:value="${venue} != null ? ${venue.getName()} : ''  " required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageUrl">Image Url</label> <input name="imageUrl" type="text" class="form-control" id="imageUrl" placeholder="Enter  imageUrl"  th:value="${venue} != null ? ${venue.getImageUrl()} : ''  " required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="venueType">Type</label>
+                        <select name="venueType" id="venueType" class="form-control">
+                            <option th:if="${venue}!=null"
+                                    th:selected="${venue.getVenueType()!=null && venue.getVenueType().toString() == type.toString()}"
+                                    th:each="type : ${types}"
+                                    th:text="${type}"
+                                    th:value="${type}">
+                            </option>
+                            <option th:if="${venue} == null"
+                                    th:each="type : ${types}"
+                                    th:text="${type}"
+                                    th:value="${type.toString()}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="capacity">Capacity</label> <input name="capacity" type="text" class="form-control" id="capacity" placeholder="Enter  capacity"  th:value="${venue} != null ? ${venue.getCapacity()} : ''  " required>
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/venues">Back</a>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</th:block>

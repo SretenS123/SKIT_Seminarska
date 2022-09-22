@@ -1,0 +1,147 @@
+*{
+    line-spacing:2px;
+    font-family:'Rubik', sans-serif;;
+}
+
+html,body{
+    margin:0;
+    padding: 0;
+
+}
+body{
+    background-image: linear-gradient(to bottom right,lightgray,white);
+}
+#spinner{
+    background: url("../img/spinner.gif") no-repeat scroll center center #FFF;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+html {
+    scroll-behavior: smooth;
+}
+#logo_text{
+    font-weight: bold;
+    color: whitesmoke;
+    font-family: 'Oswald', sans-serif;
+    line-spacing:3px;
+
+}
+.nav-menu:hover{
+    border-bottom: 1px solid white;
+    color: white!important;
+}
+.card {
+    box-shadow: -5px 8px 5px lightcoral;
+}
+
+
+#jumbotron-events{
+    background-image: url("../img/jumbotron_events.jpg");
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 250px;
+   background-position: 50% 50%;
+}
+#jumbotron-venues{
+    background-image: url("../img/jumbotron_venues.jpg");
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 250px;
+    background-position: 50% 50%;
+}
+#jumbotron_venues{
+    background-color: #c70404;
+}
+#jumbotron_shoppingCart{
+    background-color: greenyellow;
+}
+.jumbotron-heading{
+    color: white;
+    background-color: lightcoral;
+    display: inline;
+    border-radius: 15px;
+    padding: 5px;
+
+}
+@keyframes shop_cart {
+    from {background-color:lightcoral;border-radius: 5px 15px 5px 15px;}
+    to {background-color:red;border-radius: 20px 5px 20px 5px;}
+}
+#shopping-cart:hover{
+    animation-name: shop_cart;
+    animation-duration: 1000ms;
+    border-radius: 20px 5px 20px 5px;
+    background-color: red!important;
+}
+
+@keyframes login_button {
+    from {background-color: white;color: black;}
+    to {background-color: green;color: white;}
+}
+@keyframes logout_button {
+    from {background-color: white;color: black;}
+    to {background-color: red;color: white;}
+}
+.login_hover,.logout_hover{
+    border: 2px solid white;
+    color: white!important;
+    border-radius: 20px;
+    padding: 4px;
+    text-decoration: none;
+}
+.login_hover:hover{
+
+    animation-name: login_button;
+    animation-duration: 500ms;
+    background-color: green;
+    color: white;
+}
+.logout_hover:hover{
+
+    animation-name: logout_button;
+    animation-duration: 500ms;
+    background-color: red;
+    color: white;
+}
+
+
+.carousel-item img{
+    height: 800px;
+}
+.carousel-caption{
+    margin-bottom: 10%;
+}
+
+
+
+
+
+
+#aboutUs{
+    margin-top: 3%;
+}
+#aboutUs .card-title{
+    font-size: 50px;
+    font-weight: bolder;
+    color: white;
+    margin:auto;
+}
+
+
+
+
+#Search{
+
+    border-top: none ;
+    border-right: none;
+    border-left: none;
+    border-radius: 0px;
+    opacity: 60%;
+}
+
+
+
+
+

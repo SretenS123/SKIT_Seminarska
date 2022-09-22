@@ -1,0 +1,94 @@
+
+
+<nav id="header" class="navbar navbar-expand-md navbar-dark bg-dark" xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div  class="container container-fluid w-100">
+        <a class="navbar-brand " href="/"><img class="pt-2 " style="height: 60px; width: 60px" src="https://static.vecteezy.com/system/resources/previews/005/728/581/large_2x/moon-night-moonlight-midnight-solid-icon-illustration-logo-template-suitable-for-many-purposes-free-vector.jpg"><span  id="logo_text">    NightLIFE <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Flag_map_of_North_Macedonia.svg/2560px-Flag_map_of_North_Macedonia.svg.png" width="18px" height="15px"> </span></a>
+<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"-->
+<!--                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item m-auto"  >
+                    <a class="nav-link nav-menu active px-2" href="/home">HOME</a>
+                </li>
+
+                <li class="nav-item dropdown m-auto px-2" >
+                    <a class="nav-link nav-menu dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        EVENTS
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/events">All Events</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/events?type=bar">Bar</a>
+                        <a class="dropdown-item" href="/events?type=nightclub">Night Club</a>
+                        <a class="dropdown-item" href="/events?type=party">Party</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/events?type=live_music">Live Music</a>
+                        <a class="dropdown-item" href="/events?type=concert">Concert</a>
+                        <a class="dropdown-item" href="/events?type=theatre">Theatre</a>
+                        <a class="dropdown-item" href="/events?type=cinema">Cinema</a>
+                        <a class="dropdown-item" href="/events?type=show">Show</a>
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown m-auto px-2" >
+                    <a class="nav-link nav-menu dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        VENUES
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/venues">All Venues</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/venues?type=bar">Bar</a>
+                        <a class="dropdown-item" href="/venues?type=nightclub">Night Club</a>
+                        <a class="dropdown-item" href="/venues?type=party">Party</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/venues?type=live_music">Live Music</a>
+                        <a class="dropdown-item" href="/venues?type=concert">Concert</a>
+                        <a class="dropdown-item" href="/venues?type=theatre">Theatre</a>
+                        <a class="dropdown-item" href="/venues?type=cinema">Cinema</a>
+                        <a class="dropdown-item" href="/venues?type=show">Show</a>
+
+                    </div>
+                </li>
+<!--                sec:authorize="hasRole('ROLE_KUPUVAC')"-->
+
+                <li class="nav-item m-auto px-2"  >
+                    <a class="nav-link nav-menu " href="home#aboutUs">ABOUT US</a>
+                </li>
+                <li class="nav-item m-auto"  sec:authorize="hasRole('ROLE_KUPUVAC')">
+                    <a class="nav-link active" href="/avtomobili/moiNaracki">My Orders</a>
+                </li>
+
+            </ul>
+
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{'/profile'}">
+                        <th:block th:if="${#request.getRemoteUser() != null}"
+                                  th:text="${#request.getRemoteUser()}"></th:block>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a  style="background-color: lightcoral;color: ghostwhite; border-radius: 5px 15px 5px 15px;" class="btn  btn-md ml-3"  id="shopping-cart" href="/shopping-cart">
+                        <i class="fa fa-ticket" aria-hidden="true"></i>  Book Events
+                    </a>
+                </li>
+                <li id="logout" class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link ml-3 logout_hover"  href="/logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>    Logout
+                    </a>
+                </li>
+                <li id="login" class="nav-item"  sec:authorize="!isAuthenticated()">
+                    <a class=" nav-link ml-3 login_hover"  href="/login">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>    Login
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,70 @@
+
+<th:block xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!--SECTION-->
+<section id="jumbotron_shoppingCart" class="jumbotron text-center" xmlns:th="http://www.thymeleaf.org">
+    <div class="container">
+        <h3 class="jumbotron-heading">Book Events for
+        <th:block th:if="${#request.getRemoteUser() != null}"
+                      th:text="${#request.getRemoteUser()}">
+        </th:block> </h3>
+    </div>
+</section>
+<div th:if="${hasError}">
+    <h5 class="text-center text-danger" th:text="${error}"></h5>
+</div>
+    <div class="row">
+        <div class="col-md-3">
+
+            <a sec:authorize="isAuthenticated()" class="btn btn-info btn-lg m-2 " href="/myTickets">MY TICKETS</a>
+
+        </div>
+    </div>
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-md-12" th:if="${events.size()>0}">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Event Type</th>
+                        <th scope="col">Price</th>
+                        <th class="text-center" scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event : ${events}">
+                        <td th:text="${event.getDate()}"></td>
+                        <td th:text="${event.getTitle()}"></td>
+                        <td><img  class="card-img-top" style="height: 50px;" th:src="${event.getImageUrl()}" ></td>
+                        <td th:text="${event.getDescription()}"></td>
+                        <td th:text="${event.getLocation().getName()}"></td>
+                        <td th:text="${event.getEventType()}"></td>
+                        <td th:text="${event.getPrice()}"></td>
+<!--                        <td th:text="${event.getManufacturer() !=null} ? ${product.getManufacturer().getName()}: 'No Manufacturer!'"></td>-->
+<!--                        <td th:text="${event.getCategory() != null} ? ${product.getCategory().getName()} : 'No Category!'"></td>-->
+                        <td class="text-center">
+                            <form th:method="POST" th:action="@{'/shopping-cart/buy/{id}' (id=${event.getId()})}">
+                                <input class="form-control  w-25 m-auto" type="number" name="quantity" placeholder="1">
+                                <button type="submit" class="btn btn-success mt-2">Buy Ticket </button>
+                            </form>
+                            <form th:method="DELETE" th:action="@{'/shopping-cart/delete/{id}' (id=${event.getId()})}">
+                            <button type="submit" class="btn btn-danger">Remove </button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</th:block>
